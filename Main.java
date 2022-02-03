@@ -6,7 +6,7 @@ public class Main {
         final var op = new Retry<Query>(
                 new Query(1),
                 5,
-                1000
+                1000L
                 );
 
     }
