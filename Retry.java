@@ -5,7 +5,7 @@ public class Retry <T extends Retryable> {
     T clazz;
     int attempts = 0;
     int maxAttempts;
-    int ms;
+    long ms;
 
     public Retry(T clazz, int maxAttempts, int ms) {
         this.clazz = clazz;
