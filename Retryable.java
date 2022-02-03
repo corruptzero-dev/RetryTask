@@ -1,5 +1,5 @@
 package ru.corruptzero;
 
 public interface Retryable {
-     void request();
+     void request() throws InterruptedException;
 }

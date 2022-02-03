@@ -13,15 +13,20 @@ public class Retry <T extends Retryable> {
         this.ms = ms;
         while (true){
             try {
+                long time;
                 if(this.attempts<=maxAttempts){
+                    time = System.currentTimeMillis();
                     clazz.request();
+                    if((System.currentTimeMillis() - time)>ms){
+                        throw new Error("long response time");
+                    }
                 } else {
                     System.out.println("out of attempts, halt.");
                 }
                 System.out.println("Success!");
                 break;
-            } catch (Error someError){
-                System.out.println("Retry!");
+            } catch (Error | InterruptedException someError){
+                System.out.printf("Retry! (%s)\n", someError.getMessage());
                 attempts++;
             }
         }
