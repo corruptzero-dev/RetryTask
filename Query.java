@@ -11,10 +11,7 @@ public record Query(int id) implements Retryable {
         if (!isSuccessful) {
             throw new Error("self error");
         }
-        Thread.sleep(random.nextLong(500L,1500L));
+        System.out.println("waiting...");
+        Thread.sleep(random.nextLong(50L,150L));
     }
-
-//    public int getId() {
-//        return id;
-//    }
 }

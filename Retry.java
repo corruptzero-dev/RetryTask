@@ -5,23 +5,23 @@ public class Retry <T extends Retryable> {
     T clazz;
     int attempts = 0;
     int maxAttempts;
-    long ms;
+    int ms;
 
     public Retry(T clazz, int maxAttempts, int ms) {
         this.clazz = clazz;
         this.maxAttempts = maxAttempts;
         this.ms = ms;
+        TaskThread2 tt2 = new TaskThread2();
         while (true){
             try {
-                long time;
                 if(this.attempts<=maxAttempts){
-                    time = System.currentTimeMillis();
+                    tt2.ms = this.ms;
+                    tt2.start();
                     clazz.request();
-                    if((System.currentTimeMillis() - time)>ms){
-                        throw new Error("long response time");
-                    }
+                    tt2.interrupt();
                 } else {
                     System.out.println("out of attempts, halt.");
+                    break;
                 }
                 System.out.println("Success!");
                 break;
