@@ -3,11 +3,14 @@ package ru.corruptzero;
 public class Main {
 
     public static void main(String[] args) {
-        Retry<Query> op = new Retry<>(
-                new Query(1),
-                5,
-                1000
-        );
+        try {
+            RetryThread t = new RetryThread();
+            t.start();
+            Thread.sleep(1000);
+            Thread.currentThread().interrupt();
+        } catch (InterruptedException e){
+            System.out.println("long response time");
+        }
     }
 }
 

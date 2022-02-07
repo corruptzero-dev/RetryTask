@@ -11,14 +11,11 @@ public class Retry <T extends Retryable> {
         this.clazz = clazz;
         this.maxAttempts = maxAttempts;
         this.ms = ms;
-        TaskThread2 tt2 = new TaskThread2();
+        RetryThread tt2 = new RetryThread();
         while (true){
             try {
                 if(this.attempts<=maxAttempts){
-                    tt2.ms = this.ms;
-                    tt2.start();
                     clazz.request();
-                    tt2.interrupt();
                 } else {
                     System.out.println("out of attempts, halt.");
                     break;
